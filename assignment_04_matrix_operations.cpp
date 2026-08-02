@@ -64,4 +64,59 @@
 #include <iomanip>
 #include <string>
 using namespace std;
+const int MAX_SIZE = 10;
+void printMatrix(const int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << setw(5) << mat[i][j];
+        }
+        cout << endl;
+    }
+}
 
+void transposeMatrix(const int mat[MAX_SIZE][MAX_SIZE], int rows, int cols, int result[MAX_SIZE][MAX_SIZE]) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[j][i] = mat[i][j];
+        }
+    }
+}
+
+void addMatrices(const int A[MAX_SIZE][MAX_SIZE], const int B[MAX_SIZE][MAX_SIZE], int rows, int cols, int result[MAX_SIZE][MAX_SIZE]) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+void multiplyMatrices(const int A[MAX_SIZE][MAX_SIZE], const int B[MAX_SIZE][MAX_SIZE], int rA, int cA, int cB, int result[MAX_SIZE][MAX_SIZE]) {
+    for (int i = 0; i < rA; i++) {
+        for (int j = 0; j < cB; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < cA; k++) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+int main() {
+    int A[MAX_SIZE][MAX_SIZE], B[MAX_SIZE][MAX_SIZE], result[MAX_SIZE][MAX_SIZE];
+    int rows, cols;
+    cout << "--- PART A: Transpose Matrix ---" << endl;
+    cout << "Enter number of rows: ";
+    cin >> rows;
+    cout << "Enter number of columns: ";
+    cin >> cols;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> A[i][j];
+        }
+    }
+    transposeMatrix(A, rows, cols, result);
+    cout << "\nOriginal Matrix:\n";
+    printMatrix(A, rows, cols);
+    cout << "\nTransposed Matrix:\n";
+    printMatrix(result, cols, rows);
+    return 0;
+}
